@@ -1,0 +1,28 @@
+---
+import Section from './Section.astro';
+import { dict, stackGroups, type Lang } from '../i18n/content';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang].stack;
+---
+<Section id="stack" title={t.title}>
+  <Fragment slot="aside"><p class="mt-3 text-muted">{t.intro}</p></Fragment>
+  <div class="flex flex-col">
+    {stackGroups.map((g, gi) => (
+      <div class="grid gap-3 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-8" data-reveal style={`--i:${gi}`}>
+        <h3 class="text-sm font-medium text-faint">{t.groups[g.id]}</h3>
+        <ul class="flex flex-wrap gap-x-2 gap-y-3">
+          {g.items.map((it) => (
+            <li class="flex min-h-[40px] items-center gap-2 rounded-md border border-line px-3 py-1.5 text-[0.9375rem]">
+              <span class="font-medium">{it.name}</span>
+              {it.used.length > 0 && (
+                <span class="mono text-xs text-faint" title={`${t.usedIn} ${it.used.map((u) => t.projectNames[u]).join(', ')}`}>
+                  {it.used.map((u) => t.projectNames[u]).join(' · ')}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</Section>

@@ -1,0 +1,22 @@
+---
+import Section from './Section.astro';
+import { dict, type Lang } from '../i18n/content';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang].experience;
+---
+<Section id="experience" title={t.title}>
+  <article data-reveal>
+    <header class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+      <div>
+        <h3 class="text-xl font-semibold tracking-tight">{t.role}</h3>
+        <p class="text-muted">{t.org}</p>
+      </div>
+      <p class="mono text-sm text-faint">{t.period}</p>
+    </header>
+    <ul class="mt-6 flex flex-col">
+      {t.bullets.map((b, i) => (
+        <li class="border-t border-line py-3 text-[0.9688rem]" data-reveal style={`--i:${Math.min(i, 4)}`}>{b}</li>
+      ))}
+    </ul>
+  </article>
+</Section>

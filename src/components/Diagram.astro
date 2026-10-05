@@ -1,0 +1,64 @@
+---
+import { diagrams, edgePath } from '../lib/diagram';
+interface NodeText { label: string; sub: string; title: string; body: string }
+interface Props {
+  project: string;
+  texts: Record<string, NodeText>;
+  interactive?: boolean;
+  defaultNode?: string;
+  label: string;
+  hint?: string;
+  hero?: boolean;
+}
+const { project, texts, interactive = true, defaultNode = 'api', label, hint, hero = false } = Astro.props;
+const def = diagrams[project];
+const variants = hero ? ([['wide', 'block']] as const) : ([['wide', 'hidden sm:block'], ['tall', 'sm:hidden']] as const);
+---
+<figure class:list={['diagram', { draw: hero }]} data-diagram data-active={interactive ? defaultNode : undefined} aria-label={interactive ? label : undefined} aria-hidden={interactive ? undefined : 'true'}>
+  {variants.map(([key, cls]) => {
+    const layout = def[key];
+    return (
+      <svg class={cls} viewBox={`0 0 ${layout.w} ${layout.h}`} role={interactive ? 'group' : undefined} focusable="false">
+        {def.edges.map((e) => (
+          <path
+            class:list={['edge', { dashed: e.dashed, 'is-active': interactive && (e.from === defaultNode || e.to === defaultNode) }]}
+            d={edgePath(layout.nodes[e.from], layout.nodes[e.to])}
+            pathLength="1"
+            data-edge
+            data-from={e.from}
+            data-to={e.to}
+          />
+        ))}
+        {def.nodes.map((id) => {
+          const b = layout.nodes[id];
+          const t = texts[id];
+          return (
+            <g
+              class:list={['node', { interactive, 'is-active': interactive && id === defaultNode, 'is-local': def.local === id }]}
+              data-node={id}
+              role={interactive ? 'button' : undefined}
+              tabindex={interactive ? 0 : undefined}
+              aria-pressed={interactive ? String(id === defaultNode) : undefined}
+              aria-label={interactive ? `${t.label} ${t.sub}` : undefined}
+            >
+              <rect x={b.x} y={b.y} width={b.w} height={b.h} rx="10" />
+              <text class="node-label" x={b.x + 16} y={b.y + b.h / 2 - 3}>{t.label}</text>
+              <text class="node-sub" x={b.x + 16} y={b.y + b.h / 2 + 15}>{t.sub}</text>
+            </g>
+          );
+        })}
+      </svg>
+    );
+  })}
+  {interactive && (
+    <div class="diagram-panel mt-5 min-h-[104px] rounded-lg border border-line bg-surface p-4 sm:p-5" aria-live="polite">
+      {def.nodes.map((id) => (
+        <div data-detail={id} hidden={id !== defaultNode}>
+          <p class="font-semibold tracking-tight">{texts[id].title}</p>
+          <p class="mt-1 max-w-[58ch] text-[0.9375rem] text-muted">{texts[id].body}</p>
+        </div>
+      ))}
+    </div>
+  )}
+  {interactive && hint && <p class="mt-3 text-sm text-faint">{hint}</p>}
+</figure>

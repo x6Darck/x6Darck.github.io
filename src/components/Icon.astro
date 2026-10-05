@@ -1,0 +1,18 @@
+---
+// Iconos de Phosphor (@phosphor-icons/core), un solo set y un solo peso.
+interface Props { name: string; size?: number; class?: string }
+const { name, size = 20, class: cls = '' } = Astro.props;
+
+const icons = import.meta.glob(
+  '/node_modules/@phosphor-icons/core/assets/regular/{github-logo,linkedin-logo,envelope-simple,arrow-up-right,arrow-down,arrow-right,download-simple,sun,moon,translate,list,x,copy,check,map-pin,wifi-slash,plugs-connected}.svg',
+  { query: '?raw', import: 'default', eager: true },
+) as Record<string, string>;
+
+const raw = icons[`/node_modules/@phosphor-icons/core/assets/regular/${name}.svg`];
+if (!raw) throw new Error(`Icon not found: ${name}`);
+const svg = raw.replace(
+  '<svg ',
+  `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" class="${cls}" `,
+);
+---
+<Fragment set:html={svg} />

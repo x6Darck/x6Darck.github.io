@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Projects from '../../components/Projects.astro';
+import Stack from '../../components/Stack.astro';
+import Experience from '../../components/Experience.astro';
+import Education from '../../components/Education.astro';
+import Contact from '../../components/Contact.astro';
+import type { Lang } from '../../i18n/content';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang as Lang;
+---
+<Base lang={lang}>
+  <Hero lang={lang} />
+  <About lang={lang} />
+  <Projects lang={lang} />
+  <Stack lang={lang} />
+  <Experience lang={lang} />
+  <Education lang={lang} />
+  <Contact lang={lang} />
+</Base>

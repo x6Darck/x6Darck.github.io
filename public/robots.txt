@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://x6darck.github.io/sitemap-index.xml

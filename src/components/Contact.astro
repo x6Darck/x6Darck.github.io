@@ -1,0 +1,55 @@
+---
+import Section from './Section.astro';
+import Icon from './Icon.astro';
+import { dict, profile, type Lang } from '../i18n/content';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang].contact;
+const rows = [
+  { icon: 'linkedin-logo', label: t.linkedin, text: 'jean-pier-leandro-gomez-rasch', href: profile.linkedin },
+  { icon: 'github-logo', label: t.github, text: 'x6Darck', href: profile.github },
+] as const;
+---
+<Section id="contact" title={t.title}>
+  <p class="max-w-[52ch] text-[1.1875rem] leading-[1.6]" data-reveal>{t.p}</p>
+
+  <ul class="mt-8 flex flex-col">
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line py-4" data-reveal>
+      <a class="group inline-flex min-h-[44px] items-center gap-3 break-all" href={`mailto:${profile.email}`}>
+        <Icon name="envelope-simple" size={22} class="text-accent" />
+        <span>
+          <span class="block text-sm text-faint">{t.email}</span>
+          <span class="link font-medium">{profile.email}</span>
+        </span>
+      </a>
+      <button type="button" class="btn" data-copy={profile.email} data-copied={t.copied}>
+        <Icon name="copy" size={18} class="copy-icon" />
+        <Icon name="check" size={18} class="check-icon hidden" />
+        <span data-copy-label>{t.copy}</span>
+      </button>
+    </li>
+    {rows.map((r, i) => (
+      <li class="border-t border-line" data-reveal style={`--i:${i + 1}`}>
+        <a class="group flex min-h-[44px] items-center justify-between gap-4 py-4" href={r.href} target="_blank" rel="me noopener">
+          <span class="inline-flex items-center gap-3">
+            <Icon name={r.icon} size={22} class="text-accent" />
+            <span>
+              <span class="block text-sm text-faint">{r.label}</span>
+              <span class="link break-all font-medium">{r.text}</span>
+            </span>
+          </span>
+          <Icon name="arrow-up-right" size={18} class="arrow shrink-0 text-faint" />
+        </a>
+      </li>
+    ))}
+    <li class="flex flex-wrap items-center justify-between gap-4 border-y border-line py-4" data-reveal style="--i:3">
+      <span>
+        <span class="block text-sm text-faint">CV</span>
+        <span class="font-medium">{t.cvNote}</span>
+      </span>
+      <a class="btn btn-primary" href={profile.cv[lang]} download>
+        <Icon name="download-simple" size={18} />{t.cv}
+      </a>
+    </li>
+  </ul>
+  <p class="sr-only-live" role="status" data-copy-status></p>
+</Section>
