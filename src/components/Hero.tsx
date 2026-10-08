@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <header id="top" className="hero-bg relative flex min-h-[100dvh] items-center">
       <div className="wrap pb-24 pt-32">
-        <h1 className="display rv max-w-[18ch]">{t.hero.title}</h1>
+        <h1 className="display rv max-w-[18ch]">{t.hero.title.split(/(?<=\.) /).map((x) => <span key={x} className="block">{x}</span>)}</h1>
         <p className="lead rv mt-8" style={{ '--i': 1 } as React.CSSProperties}>{t.hero.sub}</p>
         <div className="rv mt-10 flex flex-wrap gap-3" style={{ '--i': 2 } as React.CSSProperties}>
           <a href="#gea" className="btn btn-solid">{t.hero.cta}</a>

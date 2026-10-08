@@ -20,7 +20,7 @@ const es = {
     { id: 'about', label: 'Sobre mí' }, { id: 'contact', label: 'Contacto' },
   ],
   hero: {
-    title: 'Sistemas completos, de la base de datos al cliente.',
+    title: 'Una persona. El sistema completo.',
     sub: 'Soy Jean Pier Gómez, desarrollador Full Stack junior en Cúcuta. Diseño y construyo la API, la web, el móvil y el escritorio.',
     cta: 'Ver proyectos', cv: 'Descargar CV (EN)', meta: 'Cúcuta, Colombia · Presencial o remoto', scroll: 'Desliza',
   },
@@ -104,7 +104,7 @@ const es = {
       { period: '2021 - 2023', t: 'Técnico en Sistemas', o: 'SENA, Cúcuta', d: '' },
     ],
   },
-  contact: { title: 'Hablemos.', p: 'Busco mi primer rol Full Stack o Backend. Escríbeme.', email: 'Correo', copy: 'Copiar correo', copied: 'Correo copiado', linkedin: 'LinkedIn', github: 'GitHub', cv: 'Descargar CV' },
+  contact: { title: 'Hablemos.', p: 'Busco mi primer rol Full Stack o Backend. Escríbeme.', email: 'Correo', copy: 'Copiar correo', copied: 'Correo copiado', linkedin: 'LinkedIn', github: 'GitHub', cv: 'Descargar CV (EN)' },
   footer: 'Hecho con React, Vite y GSAP.',
 };
 
@@ -116,7 +116,7 @@ const en: typeof es = {
     { id: 'about', label: 'About' }, { id: 'contact', label: 'Contact' },
   ],
   hero: {
-    title: 'Complete systems, from the database to the client.',
+    title: 'One developer. The complete system.',
     sub: 'I am Jean Pier Gómez, a junior Full Stack developer in Cúcuta. I design and build the API, the web, mobile and desktop clients.',
     cta: 'View projects', cv: 'Download CV', meta: 'Cúcuta, Colombia · On-site or remote', scroll: 'Scroll',
   },
