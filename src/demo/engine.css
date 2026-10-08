@@ -1,0 +1,44 @@
+/* Demo engine: cursor, ring, highlight, scaled box. Only transform/opacity animate. */
+.demo-fit { position: relative; width: 100%; overflow: hidden; background: #f4f4f5; contain: layout paint; }
+.demo-box { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.demo-replica { position: absolute; inset: 0; }
+.demo-layer { position: absolute; inset: 0; pointer-events: none; z-index: 9999; }
+.demo-cursor { position: absolute; left: 0; top: 0; width: 26px; height: 26px; margin: -2px 0 0 -3px; opacity: 0; transition: opacity 220ms cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; }
+.demo-cursor[data-shown="1"] { opacity: 1; }
+.demo-cursor svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35)); transform-origin: 3px 2px; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1); }
+.demo-cursor[data-press="1"] svg { transform: scale(0.84); }
+.demo-ring { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; background: color-mix(in oklab, var(--accent, #e04a5f) 40%, transparent); border: 2px solid var(--accent, #e04a5f); opacity: 0; will-change: transform, opacity; }
+.demo-hl { position: absolute; border-radius: 12px; box-shadow: 0 0 0 3px var(--accent, #e04a5f), 0 0 0 9px color-mix(in oklab, var(--accent, #e04a5f) 24%, transparent); opacity: 0; will-change: transform, opacity; }
+[data-demo-pressed] { transform: scale(0.97); filter: brightness(0.94); transition: transform 120ms cubic-bezier(0.23, 1, 0.32, 1), filter 120ms; }
+.demo-fit[data-interactive="1"] .demo-cursor { display: none; }
+.laptop.demo-laptop .laptop-screen { aspect-ratio: 16 / 9; }
+.phone.demo-phone { aspect-ratio: auto; padding: 3.2%; }
+.phone.demo-phone .phone-screen { height: auto; }
+.phone.demo-phone .phone-screen { background: #fff; }
+
+/* step bar */
+.stepbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; margin-top: 18px; color: var(--fg); }
+.stepbar-dots { display: flex; gap: 4px; }
+.stepbar-dot { position: relative; width: 28px; height: 44px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
+.stepbar-dot::after { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--line-strong); transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1), background-color 240ms; }
+.stepbar-dot[aria-current="true"]::after { background: var(--accent); transform: scale(1.5); }
+.stepbar-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; border-radius: 10px; }
+.stepbar-label { min-width: 15ch; text-align: center; font-weight: 600; font-size: 0.9375rem; }
+.stepbar-label small { display: block; font: 500 0.75rem var(--f-mono); color: var(--faint); }
+.stepbar-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.stepbar-btn { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--fg); font-weight: 560; font-size: 0.875rem; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms, border-color 200ms; }
+.stepbar-btn:active { transform: scale(0.97); }
+.stepbar-btn[data-primary="1"] { background: var(--accent); border-color: transparent; color: #fff; }
+.stepbar-btn:disabled { opacity: 0.4; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .stepbar-btn:hover:not(:disabled) { border-color: var(--fg); } .stepbar-btn[data-primary="1"]:hover { filter: brightness(1.06); } }
+.stepbar-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-cursor { display: none; }
+  [data-demo-pressed] { transition: none; }
+}
+
+.expand { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: rgb(8 8 10 / 0.98); color: #e5e5ea; }
+.expand-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; }
+.expand-scroll { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; padding: 0 0 24px; }
+.expand .stepbar-btn { color: #e5e5ea; border-color: rgb(255 255 255 / 0.3); }
