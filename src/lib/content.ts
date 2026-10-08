@@ -5,7 +5,7 @@ export const profile = {
   email: 'jeanpierleandro117@gmail.com',
   linkedin: 'https://www.linkedin.com/in/jean-pier-leandro-gomez-rasch-024108360',
   github: 'https://github.com/x6Darck',
-  cv: '/cv/Jean-Pier-Gomez-CV-ES.pdf',
+  cv: '/cv/CV-Jean-Pier-Leandro-Gomez-Rasch.pdf',
 };
 const gh = (repo: string) => ({ label: repo, href: `https://github.com/x6Darck/${repo}` });
 export const geaRepos = [gh('Backend_gea'), gh('Front_gea'), gh('Movil_gea')];
@@ -22,7 +22,7 @@ const es = {
   hero: {
     title: 'Sistemas completos, de la base de datos al cliente.',
     sub: 'Soy Jean Pier Gómez, desarrollador Full Stack junior en Cúcuta. Diseño y construyo la API, la web, el móvil y el escritorio.',
-    cta: 'Ver proyectos', cv: 'Descargar CV', meta: 'Cúcuta, Colombia · Presencial o remoto', scroll: 'Desliza',
+    cta: 'Ver proyectos', cv: 'Descargar CV (EN)', meta: 'Cúcuta, Colombia · Presencial o remoto', scroll: 'Desliza',
   },
   demo: { prev: 'Anterior', next: 'Siguiente', tryIt: 'Pruébalo tú', backToTour: 'Ver recorrido', reset: 'Reiniciar demo', step: 'Paso', dots: 'Pasos de la demostración', expand: 'Ampliar' },
   gea: {

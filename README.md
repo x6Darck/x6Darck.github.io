@@ -32,4 +32,4 @@ Guiones: `src/demo/gea/geaWebScript.ts`, `geaPhoneScript.ts`, `src/demo/farm/far
 Cada push a `main` ejecuta `.github/workflows/deploy.yml` y publica `dist/` en GitHub Pages.
 
 ## Pendientes
-CV en inglés e imagen para compartir (`public/og.png`).
+Imagen para compartir (`public/og.png`).
